@@ -1,7 +1,11 @@
 # hamiltonian_cycles
 This repository contains code and data related to the paper "Few hamiltonian cycles in graphs with one or two vertex degrees".
 
-The repository contains several folders, which will be described below. In this explanation, we will assume that linux is being used. Each repository that contains code also contains a makefile that can be executed by using "make" in the terminal. All of the algorithms use the standard input and standard output/standard error stream and they expect the graphs from the input to be in graph6 format.
+The repository contains several folders, which will be described below. In this explanation, we will assume that linux is being used. Each repository that contains code also contains a makefile that can be executed by using 
+```bash
+make
+```
+in the terminal. All of the algorithms use the standard input and standard output/standard error stream and they expect the graphs from the input to be in graph6 format.
 
 
 ## CODE
