@@ -6,62 +6,6 @@
 #include "bitset.h"
 #include "hamiltonicityMethods.h"
 
-// bool reject(bitset adjacencyList[], bitset path, int lastElemOfPath, int firstElemOfPath, int numberOfVertices, int pathLength) {
-//     bool shouldReject = isEmpty(difference(adjacencyList[firstElemOfPath], path));
-//     // Check for all elements not yet visited whether they still have two neighbours to which they can connect.
-//     bitset notInPath = (~path) << (64 - numberOfVertices) >> (64 - numberOfVertices);
-//     for(int element = next(notInPath, -1); element != -1; element = next(notInPath,element)) {
-//         bitset remainingOptionsForElem = difference(adjacencyList[element], path & (~singleton(firstElemOfPath)) & (~singleton(lastElemOfPath)));
-//         shouldReject |= ((remainingOptionsForElem & (remainingOptionsForElem - 1)) == 0LL);
-//     }
-//     return shouldReject;
-// }
-
-// bool accept(bitset adjacencyList[], int lastElemOfPath, int firstElemOfPath, int numberOfVertices, int pathLength) {
-
-//     // Check whether we have a Hamiltonian path already and whether this path is a cycle.
-//     return ((pathLength == numberOfVertices) && contains(adjacencyList[firstElemOfPath], lastElemOfPath));
-// }
-
-// bool canBeHamiltonian2(bitset adjacencyList[], bitset path, int lastElemOfPath, int firstElemOfPath, int numberOfVertices, int pathLength) {
-//     int prevVertex[64];
-//     int lastCheckedNeighbour[64];
-//     bitset neighboursNotInPathList[64];
-//     prevVertex[lastElemOfPath] = firstElemOfPath;
-//     lastCheckedNeighbour[firstElemOfPath] = 64;
-//     neighboursNotInPathList[lastElemOfPath] = difference(adjacencyList[lastElemOfPath], path);
-//     lastCheckedNeighbour[lastElemOfPath] = -1;
-//     bool justBacktracked = false;
-
-//     while(lastElemOfPath != firstElemOfPath) {
-
-
-//         if(accept(adjacencyList, lastElemOfPath, firstElemOfPath, numberOfVertices, pathLength)) {
-//             return true;
-//         }
-
-//         int nextVertex = next(neighboursNotInPathList[lastElemOfPath], lastCheckedNeighbour[lastElemOfPath]);
-
-//         if((reject(adjacencyList, path, lastElemOfPath, firstElemOfPath, numberOfVertices, pathLength) && !justBacktracked )|| (nextVertex == -1)){
-//             removeElement(path, lastElemOfPath);
-//             pathLength--;
-//             lastElemOfPath = prevVertex[lastElemOfPath];
-//             justBacktracked = true;
-//             continue;
-//         }
-
-//         prevVertex[nextVertex] = lastElemOfPath;
-//         lastCheckedNeighbour[lastElemOfPath] = nextVertex;
-//         lastElemOfPath = nextVertex;
-//         add(path, lastElemOfPath);
-//         pathLength++;
-//         lastCheckedNeighbour[lastElemOfPath] = -1;
-//         neighboursNotInPathList[lastElemOfPath] = difference(adjacencyList[lastElemOfPath], path);
-//         justBacktracked = false;
-//     }
-//     return false;
-
-// }
 
 bool canBeHamiltonian(bitset adjacencyList[], bitset remainingVertices, int lastElemOfPath, int firstElemOfPath, int numberOfVertices, int pathLength) {
     // Check whether we have a Hamiltonian path already and whether this path is a cycle.
@@ -568,7 +512,6 @@ bool isHamiltonianWithCount(bitset adjacencyList[], int numberOfVertices, bool a
  
 bool isHamiltonianCIndependentVersion(bitset adjacencyList[], int numberOfVertices, bool allCyclesFlag, int upperBound, Array *MISArr) {
     bool foundHamiltonianCycle = false;
-    bool upperBoundReached=false;
     int numberOfHamiltonianCycles = 0;
     int leastNeighbours = size(adjacencyList[0]);
     int start = 0;

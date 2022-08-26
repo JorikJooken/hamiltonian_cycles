@@ -10,15 +10,10 @@
 // assumes all nodes have the same degree K, except for 2 nodes which have degree less than K.
 // the program will find these 2 nodes and determine the number of hamiltonian paths between them.
 int main(int argc, char ** argv) {
-	bool assumeNonHamFlag = false;
-	bool K1flag = false;
-	bool K2flag = false;
-	bool quietFlag = false;
-	bool verboseFlag = false;
 	bool allCyclesFlag = false;
+    int upperBound = (int)1e9;
 	int nSplits = -1;
 	int iteration = -1;
-    int upperBound=(int)1e9;
 	int opt;
     long long numGraphsNoHamPathPair=0;
 	while (1) {
@@ -46,21 +41,6 @@ int main(int argc, char ** argv) {
            		fprintf(stderr," with arg %s", optarg);
         	fprintf(stderr,"\n");
         	break;
-			case '1':
-				K1flag = true;
-				break;
-			case '2':
-				K2flag = true;
-				break;
-			case 'n':
-				assumeNonHamFlag = true;
-				break;
-			case 'q':
-				quietFlag = true;
-				break;
-			case 'v':
-				verboseFlag = true;
-				break;
 			case 'a':
 				allCyclesFlag = true;
 				break;
@@ -70,9 +50,6 @@ int main(int argc, char ** argv) {
             case 'i':
             	iteration = (int) strtol(optarg, (char **)NULL, 10);
             	break;
-            case 'u':
-                upperBound = (int) strtol(optarg, (char **)NULL, 10);
-            	break;
 			case '?':
         		fprintf(stderr,"Error: Unknown option: %c\n", optopt);
         		abort();
@@ -80,11 +57,6 @@ int main(int argc, char ** argv) {
        			fprintf(stderr,"Error: Missing arg for %c\n", optopt);
         		abort();
 		}
-	}
-
-	if (K1flag && K2flag) {
-		fprintf(stderr,"Error: Do not use these flags simultaneously.\n");
-		abort();
 	}
 
 	if (nSplits == -1) {
@@ -105,9 +77,6 @@ int main(int argc, char ** argv) {
 
 	unsigned long long int counter = 0;
 	unsigned long long int total = 0;
-	unsigned long long int nonHamiltonianCounter = 0;
-	unsigned long long int K1Counter = 0;
-	unsigned long long int K2Counter = 0;
 
 
 
@@ -127,41 +96,34 @@ int main(int argc, char ** argv) {
         nVertices+=1;
 
 		counter++;
-		if(verboseFlag) 
-			fprintf(stderr, "Looking at: %s", graphString);
 
 		bool isHam;
-		if (assumeNonHamFlag) {
-			isHam = false;
-		}
-		else {
-            for(int i=0; i<nVertices-1; i++)
+        for(int i=0; i<nVertices-1; i++)
+        {
+            bool br=false;
+            for(int j=i+1; j<nVertices-1; j++)
             {
-                bool br=false;
-                for(int j=i+1; j<nVertices-1; j++)
+                if(adjacencyList[i]&(1LL<<j)) continue;
+                add(adjacencyList[nVertices-1], i);
+	            add(adjacencyList[i], nVertices-1);
+                add(adjacencyList[nVertices-1], j);
+	            add(adjacencyList[j], nVertices-1);
+                isHam = isHamiltonian(adjacencyList, nVertices, allCyclesFlag, upperBound);
+                if(!isHam)
                 {
-                    if(adjacencyList[i]&(1LL<<j)) continue;
-                    add(adjacencyList[nVertices-1], i);
-		            add(adjacencyList[i], nVertices-1);
-                    add(adjacencyList[nVertices-1], j);
-		            add(adjacencyList[j], nVertices-1);
-                    isHam = isHamiltonian(adjacencyList, nVertices, allCyclesFlag, upperBound);
-                    if(!isHam)
-                    {
-                        numGraphsNoHamPathPair++;
-                        printf("%s\n",graphString);
-                        printf("no ham path between %d and %d\n",i,j);
-                        br=true;
-                        break;
-                    }
-                    removeElement(adjacencyList[nVertices-1], i);
-		            removeElement(adjacencyList[i], nVertices-1);
-                    removeElement(adjacencyList[nVertices-1], j);
-		            removeElement(adjacencyList[j], nVertices-1);
+                    numGraphsNoHamPathPair++;
+                    printf("%s\n",graphString);
+                    printf("no ham path between %d and %d\n",i,j);
+                    br=true;
+                    break;
                 }
-                if(br) break;
+                removeElement(adjacencyList[nVertices-1], i);
+	            removeElement(adjacencyList[i], nVertices-1);
+                removeElement(adjacencyList[nVertices-1], j);
+	            removeElement(adjacencyList[j], nVertices-1);
             }
-		}
+            if(br) break;
+        }
 	}
 	clock_t end = clock();
 	double time_spent = (double)(end - start) / CLOCKS_PER_SEC;
