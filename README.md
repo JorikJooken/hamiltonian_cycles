@@ -5,19 +5,19 @@ The repository contains several folders, which will be described below. In this 
 ```bash
 make
 ```
-in the terminal. All of the algorithms use the standard input and standard output/standard error stream and they expect the graphs from the input to be in graph6 format.
+in the terminal. All of the algorithms use the standard input and standard output/standard error stream and they expect the graphs from the input to be in graph6 format. The folders countingHamiltonianCyclesAlgorithm1, hIndependentDominatingSet and allNonAdjacentPairsHamiltonianPath use (a slightly adapted version of) the algorithm from https://github.com/JarneRenders/K2-Hamiltonian-Graphs to generate (or count) the hamiltonian cycles.
 
 
 ## CODE
 ### countingHamiltonianCyclesAlgorithm1
-This folder contains an algorithm ("countHamiltonianCycles") that can be used to count the number of hamiltonian cycles of a graph. This algorithm was taken from XXX (and some small modifications were made). The file "07_4_3.g6" contains a list of all connected 4-regular graphs on 7 vertices (there are 2 such graphs). One can count the number of hamiltonian cycles for each graph in this file by using the following command in a terminal:
+This folder contains an algorithm ("countHamiltonianCycles") that can be used to count the number of hamiltonian cycles of a graph. The file "07_4_3.g6" contains a list of all connected 4-regular graphs on 7 vertices (there are 2 such graphs). One can count the number of hamiltonian cycles for each graph in this file by using the following command in a terminal:
 
 ```bash
 ./countHamiltonianCycles -a < 07_4_3.g6
 ```
 
 The expected output is then:
-```bash
+```
 F}oxw
 24
 F}hXw
@@ -33,7 +33,7 @@ It is also possible to specify an upper bound using the -u flag such that the al
 
 the expected output is:
 
-```bash
+```
 F}oxw
 >=24
 F}hXw
@@ -48,7 +48,7 @@ This folder contains another algorithm ("countHamiltonianCyclesHeldKarp") for co
 ```
 
 and will produce the output:
-```bash
+```
 F}oxw
 24
 F}hXw
@@ -66,7 +66,7 @@ The following command:
 ```
 
 will yield the following output:
-```bash
+```
 23
 F}hXw
 ```
@@ -97,7 +97,7 @@ If the following command is used:
 ```
 
 The output will be empty, since there are no such graphs.  The standard error will contain:
-```bash
+```
 There were 0 graphs for which there exists a non-adjacent pair of vertices with no hamiltonian path between them
 Checked 3 graphs in 0.000310 seconds.
 ```
@@ -110,7 +110,7 @@ This folder contains a simple algorithm ("connectivity2Filter") that can be used
 ```
 
 and it will output all graphs from this list with vertex connectivity 2 (there are 4 of them):
-```bash
+```
 I?bEHow[?
 I?`bM_we?
 ICQRD_kQ_
@@ -134,7 +134,7 @@ The folder also contains a file "all_connected_graphs_6_vertices.g6", which cont
 ```
 
 the expected output will be a list of all nearly 4-regular graphs on 6 vertices such that there is an edge between the terminals and the terminals have degree 3. There is one such graph:
-```bash
+```
 E]yw
 ```
 
