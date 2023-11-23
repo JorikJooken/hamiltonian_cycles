@@ -1,5 +1,5 @@
 # hamiltonian_cycles
-This repository contains code and data related to the paper "Few hamiltonian cycles in graphs with one or two vertex degrees".
+This repository contains code and data related to the paper "Few hamiltonian cycles in graphs with one or two vertex degrees" (https://arxiv.org/pdf/2211.08105.pdf).
 
 The repository contains several folders, which will be described below. In this explanation, we will assume that linux is being used. Each repository that contains code also contains a makefile that can be executed by using 
 ```bash
